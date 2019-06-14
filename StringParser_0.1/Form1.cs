@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using StringParser_0._1.Objects;
-using HtmlAgilityPack;
+using StringParser_0._1.Core;
 
 namespace StringParser_0._1
 {
     public partial class Form1 : Form
     {
+        private ParserCore core;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,12 +23,15 @@ namespace StringParser_0._1
 
         private void parseBtn_Click(object sender, EventArgs e)
         {
-            List<ParsingObj> objects = new List<ParsingObj>();
+            core = new ParserCore(urlTextBox.Text);
 
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            string[] noCommas = namesTextBox.Text.Split(',');
-            try
-            {
+            List<AuthorData> objects = new List<AuthorData>();
+            string authorsString = core.GetAuthorsOnPage();
+
+            string[] noCommas = authorsString.Split(',');
+
+           try
+           {
                 for (int i = 0; i < noCommas.Length; i++)
                 {
                     noCommas[i] = noCommas[i].Trim();
@@ -37,25 +42,31 @@ namespace StringParser_0._1
                 parsingResultGrid.DataSource = objects;
 
                 bibliographTextBox.Text = GenerateFIOBibliography(objects);
-            }
+
+                pageRangeTextBox.Text = core.GetPageRange();
+
+                doiTextBox.Text = core.GetDoi();
+
+                refsCountTextBox.Text = core.GetReferenceCount();
+           }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            namesTextBox.Clear();
+            //urlTextBox.Clear();
         }
 
-        static ParsingObj CreateParseObj(string fio)
+        static AuthorData CreateParseObj(string fio)
         {
             string[] res = fio.Split(' ');
-
+           
             string initials = res.Length == 3 ? res[1] + res[2] : res[1];
 
-            return new ParsingObj(res[0], initials);
+            return new AuthorData(res[0], initials);
         }
 
-        static string GenerateFIOBibliography(IList<ParsingObj> parsings)
+        static string GenerateFIOBibliography(IList<AuthorData> parsings)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -73,7 +84,7 @@ namespace StringParser_0._1
         {
             parsingResultGrid.ClearSelection();
             parsingResultGrid.DataSource = null;
-            namesTextBox.Clear();
+            urlTextBox.Clear();
             bibliographTextBox.Clear();
         }
 
@@ -102,6 +113,27 @@ namespace StringParser_0._1
         {
             if (!String.IsNullOrEmpty(bibliographTextBox.Text))
                 Clipboard.SetText(bibliographTextBox.Text);
+        }
+
+        private void engTitleBtn_Click(object sender, EventArgs e)
+        {
+            titleTextBox.Text = core.GetEnglishTitle();
+            if (!String.IsNullOrEmpty(bibliographTextBox.Text))
+                Clipboard.SetText(titleTextBox.Text);
+        }
+
+        private void ukrTitleBtn_Click(object sender, EventArgs e)
+        {
+            titleTextBox.Text = core.GetTitle("uk");
+            if (!String.IsNullOrEmpty(bibliographTextBox.Text))
+                Clipboard.SetText(titleTextBox.Text);
+        }
+
+        private void rusTitleBtn_Click(object sender, EventArgs e)
+        {
+            titleTextBox.Text = core.GetTitle("ru");
+            if (!String.IsNullOrEmpty(bibliographTextBox.Text))
+                Clipboard.SetText(titleTextBox.Text);
         }
     }
 }

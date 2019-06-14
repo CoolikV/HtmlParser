@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace StringParser_0._1.Objects
 {
-    class ParsingObj
+    public class AuthorData
     {
-        public ParsingObj(string surn, string init)
+        public AuthorData(string surn, string init)
         {
             Surname = surn;
             Initials = init;
         }
-        public ParsingObj()
+        public AuthorData()
         {
 
         }
