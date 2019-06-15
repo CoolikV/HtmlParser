@@ -80,5 +80,24 @@ namespace ParserTests
 
             var annotation = core.GetAnnotation("ru");
         }
+
+        [TestMethod]
+        public void CreateAuthorsList()
+        {
+            var url = "https://www.biopolymers.org.ua/content/30/2/149/";
+            var core = new ParserCore(url);
+
+            var authorsList = core.CreateAuthorsList();
+        }
+
+        [TestMethod]
+        public void GetnerateBibliography()
+        {
+            var url = "https://www.biopolymers.org.ua/content/30/2/149/";
+            var core = new ParserCore(url);
+            var pattern = "Название / ИОФамилия // Вiopolymers and Cell. — 2014. — Т. 30, № 3. — С. ХХ-ХХ. — Бібліогр.: ХХ назв. — англ.";
+
+            var bibliography = core.GenerateBibliograpy(pattern);
+        }
     }
 }

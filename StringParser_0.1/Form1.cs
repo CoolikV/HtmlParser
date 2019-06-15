@@ -25,59 +25,23 @@ namespace StringParser_0._1
         {
             core = new ParserCore(urlTextBox.Text);
 
-            List<AuthorData> objects = new List<AuthorData>();
-            string authorsString = core.GetAuthorsOnPage();
-
-            string[] noCommas = authorsString.Split(',');
+            List<AuthorData> objects = core.CreateAuthorsList();
 
            try
            {
-                for (int i = 0; i < noCommas.Length; i++)
-                {
-                    noCommas[i] = noCommas[i].Trim();
-
-                    objects.Add(CreateParseObj(noCommas[i]));
-                }
-
                 parsingResultGrid.DataSource = objects;
-
-                bibliographTextBox.Text = GenerateFIOBibliography(objects);
-
+                if(!String.IsNullOrEmpty(biblPatternTextBox.Text))
+                    bibliographTextBox.Text = core.GenerateBibliograpy(biblPatternTextBox.Text);
                 pageRangeTextBox.Text = core.GetPageRange();
-
                 doiTextBox.Text = core.GetDoi();
-
                 refsCountTextBox.Text = core.GetReferenceCount();
+                engTitleBtn_Click(this, null);
            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            //urlTextBox.Clear();
-        }
-
-        static AuthorData CreateParseObj(string fio)
-        {
-            string[] res = fio.Split(' ');
-           
-            string initials = res.Length == 3 ? res[1] + res[2] : res[1];
-
-            return new AuthorData(res[0], initials);
-        }
-
-        static string GenerateFIOBibliography(IList<AuthorData> parsings)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            foreach(var obj in parsings)
-            {
-                sb.Append($"{obj.Initials} {obj.Surname}, ");
-            }
-            string result = sb.ToString();
-            result = result.Remove(result.LastIndexOf(','), 1);
-
-            return result.Trim();
         }
 
         private void clearBtn_Click(object sender, EventArgs e)
@@ -86,6 +50,10 @@ namespace StringParser_0._1
             parsingResultGrid.DataSource = null;
             urlTextBox.Clear();
             bibliographTextBox.Clear();
+            pageRangeTextBox.Clear();
+            doiTextBox.Clear();
+            refsCountTextBox.Clear();
+            titleTextBox.Clear();
         }
 
         private void bibliographTextBox_TextChanged(object sender, EventArgs e)
@@ -135,5 +103,39 @@ namespace StringParser_0._1
             if (!String.IsNullOrEmpty(bibliographTextBox.Text))
                 Clipboard.SetText(titleTextBox.Text);
         }
+
+        private void engAnnotBtn_Click(object sender, EventArgs e)
+        {
+            var annotation = core.GetEnglishAnnotation();
+
+            Clipboard.SetText(annotation);
+        }
+
+        private void ukrAnnotBtn_Click(object sender, EventArgs e)
+        {
+            var annotation = core.GetAnnotation("uk");
+
+            Clipboard.SetText(annotation);
+        }
+
+        private void rusAnnotBtn_Click(object sender, EventArgs e)
+        {
+            var annotation = core.GetAnnotation("ru");
+
+            Clipboard.SetText(annotation);
+        }
+
+        private void doiTextBox_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(doiTextBox.Text))
+                Clipboard.SetText(doiTextBox.Text);
+        }
+
+        private void bibliographTextBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!String.IsNullOrEmpty(bibliographTextBox.Text))
+                Clipboard.SetText(bibliographTextBox.Text);
+        }
+
     }
 }

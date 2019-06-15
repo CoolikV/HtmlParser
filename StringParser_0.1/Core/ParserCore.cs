@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HtmlAgilityPack;
 using System.Net;
 using System.Text.RegularExpressions;
+using StringParser_0._1.Objects;
 
 namespace StringParser_0._1.Core
 {
@@ -32,7 +33,7 @@ namespace StringParser_0._1.Core
             var authorStrings = authorNode.FirstOrDefault().InnerText;
             //replace regex like this : ,, and ,[A-Z]
             var formattedString = Regex.Replace(authorStrings, @"[\d-]", String.Empty);
-            var next = Regex.Replace(formattedString, @"^, ", String.Empty).Replace(", ,",",");
+            var next = Regex.Replace(formattedString, @"^, ", String.Empty).Replace(", ,",",").Replace(", ,", ",");
             //var nextNext = Regex.Replace(next, @", ,", ",");
             return next;
         }
@@ -118,6 +119,56 @@ namespace StringParser_0._1.Core
             var annotation = innerText.Replace("Abstract", String.Empty).Trim().Split(new[] { "Keywords" }, StringSplitOptions.None)[0];
 
             return annotation.TrimEnd();
+        }
+
+        public string GenerateFIOBibliography()
+        {
+            var parsings = CreateAuthorsList();
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var obj in parsings)
+            {
+                sb.Append($"{obj.Initials} {obj.Surname}, ");
+            }
+            string result = sb.ToString();
+            result = result.Remove(result.LastIndexOf(','), 1);
+
+            return result.Trim();
+        }
+
+        public string GenerateBibliograpy(string pattern)
+        {
+            var authors = GenerateFIOBibliography();
+
+            string bibliography = pattern.Replace("Название", GetEnglishTitle()).Replace("ИОФамилия", authors).
+                Replace("ХХ-ХХ.", GetPageRange()).Replace(@"ХХ", GetReferenceCount());
+
+            return bibliography.Replace("\n",String.Empty);
+        }
+
+        public List<AuthorData> CreateAuthorsList()
+        {
+            var authors = GetAuthorsOnPage();
+            var authorsList = new List<AuthorData>();
+            string[] removedComma = authors.Split(',');
+
+            for (int i = 0; i < removedComma.Length; i++)
+            {
+                removedComma[i] = removedComma[i].Trim();
+
+                authorsList.Add(CreateParseObj(removedComma[i]));
+            }
+
+            return authorsList;
+        }
+
+        private AuthorData CreateParseObj(string fio)
+        {
+            string[] res = fio.Split(' ');
+
+            string initials = res.Length == 3 ? res[1] + res[2] : res[1];
+
+            return new AuthorData(res[0], initials);
         }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.parsingResultGrid = new System.Windows.Forms.DataGridView();
             this.parseBtn = new System.Windows.Forms.Button();
@@ -51,6 +52,8 @@
             this.refsCountTextBox = new System.Windows.Forms.TextBox();
             this.titleTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.biblPatternTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.parsingResultGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -73,9 +76,18 @@
             this.parsingResultGrid.AllowUserToResizeColumns = false;
             this.parsingResultGrid.AllowUserToResizeRows = false;
             this.parsingResultGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.parsingResultGrid.DefaultCellStyle = dataGridViewCellStyle5;
             this.parsingResultGrid.Location = new System.Drawing.Point(12, 58);
             this.parsingResultGrid.MultiSelect = false;
             this.parsingResultGrid.Name = "parsingResultGrid";
+            this.parsingResultGrid.ReadOnly = true;
             this.parsingResultGrid.Size = new System.Drawing.Size(261, 316);
             this.parsingResultGrid.TabIndex = 2;
             this.parsingResultGrid.SelectionChanged += new System.EventHandler(this.parsingResultGrid_SelectionChanged);
@@ -95,10 +107,13 @@
             // 
             // bibliographTextBox
             // 
-            this.bibliographTextBox.Location = new System.Drawing.Point(12, 460);
+            this.bibliographTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bibliographTextBox.Location = new System.Drawing.Point(12, 469);
+            this.bibliographTextBox.Multiline = true;
             this.bibliographTextBox.Name = "bibliographTextBox";
-            this.bibliographTextBox.Size = new System.Drawing.Size(776, 20);
+            this.bibliographTextBox.Size = new System.Drawing.Size(776, 57);
             this.bibliographTextBox.TabIndex = 4;
+            this.bibliographTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.bibliographTextBox_MouseClick);
             this.bibliographTextBox.TextChanged += new System.EventHandler(this.bibliographTextBox_TextChanged);
             this.bibliographTextBox.Enter += new System.EventHandler(this.bibliographTextBox_Enter);
             // 
@@ -106,11 +121,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(12, 437);
+            this.label2.Location = new System.Drawing.Point(12, 446);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(198, 20);
+            this.label2.Size = new System.Drawing.Size(95, 20);
             this.label2.TabIndex = 5;
-            this.label2.Text = "ФИО для библиографии";
+            this.label2.Text = "Bibliography";
             // 
             // clearBtn
             // 
@@ -137,6 +152,7 @@
             this.doiTextBox.Name = "doiTextBox";
             this.doiTextBox.Size = new System.Drawing.Size(176, 20);
             this.doiTextBox.TabIndex = 7;
+            this.doiTextBox.Click += new System.EventHandler(this.doiTextBox_Click);
             // 
             // label3
             // 
@@ -241,6 +257,7 @@
             this.engAnnotBtn.TabIndex = 11;
             this.engAnnotBtn.Text = "ENGLISH";
             this.engAnnotBtn.UseVisualStyleBackColor = true;
+            this.engAnnotBtn.Click += new System.EventHandler(this.engAnnotBtn_Click);
             // 
             // ukrAnnotBtn
             // 
@@ -253,6 +270,7 @@
             this.ukrAnnotBtn.TabIndex = 13;
             this.ukrAnnotBtn.Text = "UKRAINE";
             this.ukrAnnotBtn.UseVisualStyleBackColor = true;
+            this.ukrAnnotBtn.Click += new System.EventHandler(this.ukrAnnotBtn_Click);
             // 
             // rusAnnotBtn
             // 
@@ -265,6 +283,7 @@
             this.rusAnnotBtn.TabIndex = 12;
             this.rusAnnotBtn.Text = "RUSSIAN";
             this.rusAnnotBtn.UseVisualStyleBackColor = true;
+            this.rusAnnotBtn.Click += new System.EventHandler(this.rusAnnotBtn_Click);
             // 
             // label5
             // 
@@ -301,11 +320,31 @@
             this.label6.TabIndex = 19;
             this.label6.Text = "Title";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(12, 377);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(150, 20);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "Bibliography pattern";
+            // 
+            // biblPatternTextBox
+            // 
+            this.biblPatternTextBox.Location = new System.Drawing.Point(12, 400);
+            this.biblPatternTextBox.Multiline = true;
+            this.biblPatternTextBox.Name = "biblPatternTextBox";
+            this.biblPatternTextBox.Size = new System.Drawing.Size(776, 34);
+            this.biblPatternTextBox.TabIndex = 21;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 492);
+            this.ClientSize = new System.Drawing.Size(800, 578);
+            this.Controls.Add(this.biblPatternTextBox);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.titleTextBox);
             this.Controls.Add(this.refsCountTextBox);
@@ -358,6 +397,8 @@
         private System.Windows.Forms.TextBox refsCountTextBox;
         private System.Windows.Forms.TextBox titleTextBox;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox biblPatternTextBox;
     }
 }
 
