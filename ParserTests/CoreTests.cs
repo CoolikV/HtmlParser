@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StringParser_0._1.Core;
+using StringParser_0._1.Objects;
 
 namespace ParserTests
 {
@@ -98,6 +99,50 @@ namespace ParserTests
             var pattern = "Название / ИОФамилия // Вiopolymers and Cell. — 2014. — Т. 30, № 3. — С. ХХ-ХХ. — Бібліогр.: ХХ назв. — англ.";
 
             var bibliography = core.GenerateBibliograpy(pattern);
+        }
+
+        [TestMethod]
+        public void GetPageTopic()
+        {
+            var url = "https://www.biopolymers.org.ua/content/30/3/184/";
+            var core = new ParserCore(url);
+
+            var topic = core.GetPageTopic() ;
+        }
+
+        [TestMethod]
+        public void GetCollectionOfContenElements()
+        {
+            var url = "https://www.biopolymers.org.ua/content/29/1/";
+            var core = new ParserCore(url);
+
+            var collection = core.GetCollectionOfContentElements();
+        }
+
+        [TestMethod]
+        public void GetTopicsDivs()
+        {
+            var url = "https://www.biopolymers.org.ua/content/29/1/";
+            var core = new ParserCore(url);
+
+            var topicsDivs = core.GetDivsByClassContains("topic");
+        }
+
+        [TestMethod]
+        public void GetArtTitle()
+        {
+            var url = "https://www.biopolymers.org.ua/content/29/1/";
+            var core = new ParserCore(url);
+
+            var title = core.GetArticleTitle();
+        }
+
+        [TestMethod]
+        public void RemoveSpaces()
+        {
+            var elem = new ContentElement("Matvienko M. G., Pustovalov A. S., Dzerzhinsky N. E.", "BKBGj");
+
+            var noSpacec = elem.RemoveWhitespaces("Matvienko M. G., Pustovalov A. S., Dzerzhinsky N. E.");
         }
     }
 }

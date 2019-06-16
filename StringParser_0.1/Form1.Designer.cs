@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.parsingResultGrid = new System.Windows.Forms.DataGridView();
             this.parseBtn = new System.Windows.Forms.Button();
@@ -54,6 +54,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.biblPatternTextBox = new System.Windows.Forms.TextBox();
+            this.topicBtn = new System.Windows.Forms.Button();
+            this.contenGenBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.parsingResultGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -76,14 +78,14 @@
             this.parsingResultGrid.AllowUserToResizeColumns = false;
             this.parsingResultGrid.AllowUserToResizeRows = false;
             this.parsingResultGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.parsingResultGrid.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.parsingResultGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.parsingResultGrid.Location = new System.Drawing.Point(12, 58);
             this.parsingResultGrid.MultiSelect = false;
             this.parsingResultGrid.Name = "parsingResultGrid";
@@ -338,11 +340,39 @@
             this.biblPatternTextBox.Size = new System.Drawing.Size(776, 34);
             this.biblPatternTextBox.TabIndex = 21;
             // 
+            // topicBtn
+            // 
+            this.topicBtn.Cursor = System.Windows.Forms.Cursors.Default;
+            this.topicBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.topicBtn.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.topicBtn.Location = new System.Drawing.Point(509, 195);
+            this.topicBtn.Name = "topicBtn";
+            this.topicBtn.Size = new System.Drawing.Size(70, 104);
+            this.topicBtn.TabIndex = 14;
+            this.topicBtn.Text = "TOPIC";
+            this.topicBtn.UseVisualStyleBackColor = true;
+            this.topicBtn.Click += new System.EventHandler(this.topicBtn_Click);
+            // 
+            // contenGenBtn
+            // 
+            this.contenGenBtn.Cursor = System.Windows.Forms.Cursors.Default;
+            this.contenGenBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.contenGenBtn.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.contenGenBtn.Location = new System.Drawing.Point(601, 532);
+            this.contenGenBtn.Name = "contenGenBtn";
+            this.contenGenBtn.Size = new System.Drawing.Size(187, 40);
+            this.contenGenBtn.TabIndex = 22;
+            this.contenGenBtn.Text = "Content Generator";
+            this.contenGenBtn.UseVisualStyleBackColor = true;
+            this.contenGenBtn.Click += new System.EventHandler(this.contenGenBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 578);
+            this.Controls.Add(this.contenGenBtn);
+            this.Controls.Add(this.topicBtn);
             this.Controls.Add(this.biblPatternTextBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -399,6 +429,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox biblPatternTextBox;
+        private System.Windows.Forms.Button topicBtn;
+        private System.Windows.Forms.Button contenGenBtn;
     }
 }
 

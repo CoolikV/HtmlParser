@@ -86,21 +86,21 @@ namespace StringParser_0._1
         private void engTitleBtn_Click(object sender, EventArgs e)
         {
             titleTextBox.Text = core.GetEnglishTitle();
-            if (!String.IsNullOrEmpty(bibliographTextBox.Text))
+            if (!String.IsNullOrEmpty(titleTextBox.Text))
                 Clipboard.SetText(titleTextBox.Text);
         }
 
         private void ukrTitleBtn_Click(object sender, EventArgs e)
         {
             titleTextBox.Text = core.GetTitle("uk");
-            if (!String.IsNullOrEmpty(bibliographTextBox.Text))
+            if (!String.IsNullOrEmpty(titleTextBox.Text))
                 Clipboard.SetText(titleTextBox.Text);
         }
 
         private void rusTitleBtn_Click(object sender, EventArgs e)
         {
             titleTextBox.Text = core.GetTitle("ru");
-            if (!String.IsNullOrEmpty(bibliographTextBox.Text))
+            if (!String.IsNullOrEmpty(titleTextBox.Text))
                 Clipboard.SetText(titleTextBox.Text);
         }
 
@@ -137,5 +137,16 @@ namespace StringParser_0._1
                 Clipboard.SetText(bibliographTextBox.Text);
         }
 
+        private void topicBtn_Click(object sender, EventArgs e)
+        {
+            var topic = core.GetPageTopic();
+
+            Clipboard.SetText(topic);
+        }
+
+        private void contenGenBtn_Click(object sender, EventArgs e)
+        {
+            new ContentGenerator().Show();
+        }
     }
 }

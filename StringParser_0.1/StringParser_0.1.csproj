@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContentGenerator.Designer.cs">
+      <DependentUpon>ContentGenerator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\ParserCore.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -58,8 +64,12 @@
     </Compile>
     <Compile Include="Objects\ArticleData.cs" />
     <Compile Include="Objects\AuthorData.cs" />
+    <Compile Include="Objects\ContentElement.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ContentGenerator.resx">
+      <DependentUpon>ContentGenerator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

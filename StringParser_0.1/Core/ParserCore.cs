@@ -66,7 +66,7 @@ namespace StringParser_0._1.Core
         {
             var titleNode = GetDivsByClassName("title");
 
-            return titleNode.First().InnerText;
+            return WebUtility.HtmlDecode(titleNode.First().InnerText);
         }
 
         public string GetEnglishAnnotation()
@@ -77,7 +77,7 @@ namespace StringParser_0._1.Core
 
             var annotation = innerText.Replace("Abstract", String.Empty).Trim().Split(new[] { "Keywords" }, StringSplitOptions.None)[0];
 
-            return annotation.TrimEnd();
+            return WebUtility.HtmlDecode(annotation.TrimEnd());
         }
 
         public HtmlDocument GetAnotherLanguagePage(string lang)
@@ -107,7 +107,7 @@ namespace StringParser_0._1.Core
 
             var title = titleNode.First().InnerText;
 
-            return title;
+            return WebUtility.HtmlDecode(title);
         }
 
         public string GetAnnotation(string lang)
@@ -118,7 +118,7 @@ namespace StringParser_0._1.Core
             var innerText = annotationNode.First().InnerText;
             var annotation = innerText.Replace("Abstract", String.Empty).Trim().Split(new[] { "Keywords" }, StringSplitOptions.None)[0];
 
-            return annotation.TrimEnd();
+            return WebUtility.HtmlDecode(annotation.TrimEnd());
         }
 
         public string GenerateFIOBibliography()
@@ -169,6 +169,69 @@ namespace StringParser_0._1.Core
             string initials = res.Length == 3 ? res[1] + res[2] : res[1];
 
             return new AuthorData(res[0], initials);
+        }
+
+        public string GetPageTopic()
+        {
+            var topicNode = GetDivsByClassName("topic");
+
+            var topic = topicNode.FirstOrDefault().InnerText;
+
+            return topic;
+        }
+
+        public List<ContentElement> GetCollectionOfContentElements()
+        {
+            var collection = new List<ContentElement>();
+            var authorNodes = GetDivsByClassName("authors");
+            var titleNodes = GetDivsByClassName("title");
+            string[] authors = new string[authorNodes.Count()];
+            string[] titles = new string[titleNodes.Count()];
+
+            int i = 0;
+            foreach(var node in authorNodes)
+            {
+                authors[i++] = node.InnerText;
+            }
+            i = 0;
+            foreach(var node in titleNodes)
+            {
+                titles[i++] = node.InnerText;
+            }
+
+            for(var k = 0; k < authorNodes.Count(); k++)
+            {
+                collection.Add(new ContentElement(authors[k], titles[k]));
+            }
+
+            return collection;
+        }
+
+        public IEnumerable<HtmlNode> GetDivsByClassContains(string crit)
+        {
+            HtmlNodeCollection divs = _webDoc.DocumentNode.SelectNodes($"//div[contains(@class, '{crit}')]");
+
+            return divs;
+        }
+
+        public string[] GetTopicsList()
+        {
+            var topicsDivs = GetDivsByClassContains("topic");
+            var topics = new string[topicsDivs.Count()];
+            int i = 0;
+
+            foreach(var div in topicsDivs)
+            {
+                topics[i++] = WebUtility.HtmlDecode(div.InnerText);
+            }
+            return topics;
+        }
+
+        public string GetArticleTitle()
+        {
+            var artDiv = GetDivsByClassName("citation");
+
+            return WebUtility.HtmlDecode(artDiv.FirstOrDefault().InnerText);
         }
     }
 }
